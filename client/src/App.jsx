@@ -10,6 +10,7 @@ import StitchLibrary from './pages/StitchLibrary'
 import Journal from './pages/Journal'
 import Mission from './pages/Mission'
 import SavedPatterns from './pages/SavedPatterns'
+import ProtectedRoute from './components/ProtectedRoute'
 
 export default function App() {
   return (
@@ -18,13 +19,39 @@ export default function App() {
         <Route path="/" element={<Home />} /> 
         <Route path="/mission" element={<Mission />} /> 
         <Route path="/login" element={<Login />} /> 
-        <Route path="/register" element={<Register />} /> 
-        <Route path="/account" element={<Account />} /> 
-        <Route path="/pattern-generator" element={<PatternGenerator />} /> 
-        <Route path="/saved-patterns" element={<SavedPatterns />} /> 
-        <Route path="/stitch-library" element={<StitchLibrary />} /> 
-        <Route path="/achievements" element={<Achievements />} /> 
-        <Route path="/journal" element={<Journal />} /> 
+        <Route path="/register" element={<Register />} />
+
+        <Route path="/account" element={
+          <ProtectedRoute>
+            <Account />
+          </ProtectedRoute>} /> 
+
+        <Route path="/pattern-generator" element={
+          <ProtectedRoute>
+            <PatternGenerator />
+          </ProtectedRoute>
+          } /> 
+        <Route path="/saved-patterns" element={
+          <ProtectedRoute>
+            <SavedPatterns />
+          </ProtectedRoute>
+        } /> 
+
+        <Route path="/stitch-library" element={
+          <ProtectedRoute>
+            <StitchLibrary />
+          </ProtectedRoute>
+        } /> 
+        <Route path="/achievements" element={
+          <ProtectedRoute>
+            <Achievements />
+          </ProtectedRoute>
+        } /> 
+        <Route path="/journal" element={
+          <ProtectedRoute>
+            <Journal />
+          </ProtectedRoute>
+        } /> 
       </Routes>
     </MainLayout>
   )

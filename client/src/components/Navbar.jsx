@@ -18,6 +18,15 @@ export default function Navbar() {
             <Link to="/stitch-library">Stitch Library</Link>
             <Link to="/saved-patterns">Saved Patterns</Link>
         </div>
+
+        <button 
+            onClick={() => {
+            localStorage.clear()
+             window.location.href = '/login'
+            }}
+        >
+  Logout
+</button>
        </nav>
     )
 }
