@@ -19,9 +19,7 @@ export default function Navbar() {
             <Link to="/saved-patterns">Saved Patterns</Link>
         </div>
 
-        <button 
-            onClick={() => {
-            localStorage.clear()
+        <button onClick={() => {localStorage.clear()
              window.location.href = '/login'
             }}
         >

@@ -79,8 +79,14 @@ const registerUser = async (req, res) => {
             user: {
                 id: user._id,
                 firstName: user.firstName,
+                lastName: user.lastName,
                 email: user.email,
+                expertise: user.expertise,
                 role: user.role,
+                xp: user.xp,
+                level: user.level,
+                dailyGoal: user.dailyGoal,
+                charms: user.Charms
             },
         })
     } catch (error) {
