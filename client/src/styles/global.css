@@ -10,6 +10,12 @@ a {
   color: inherit;
 }
 
+
+/* =========================================
+ ================NAV BAR=================
+ ========================================== */
+
+
 .navbar {
   background-color: #f8d7da;
   padding: 1rem 2rem;
@@ -39,6 +45,54 @@ a {
   min-height: 80vh;
   padding: 2rem;
 }
+
+/* ===============================================
+================== ACCOUNT ===================
+================================================= */
+
+.xp-donut-wrap {
+  margin: 1rem 0 1.5rem;
+}
+
+.xp-donut {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.xp-donut-inner {
+  width: 70%;
+  height: 70%;
+  background: #fffaf8;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.xp-donut-label {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #7a5c61;
+}
+
+.xp-donut-level {
+  margin: 0.2rem 0;
+  font-size: 2rem;
+  color: #3d2c2e;
+}
+
+.xp-donut-sub {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #7a5c61;
+}
+ 
+/* =============================================
+================FOOTER=======================
+============================================ */
 
 .footer {
   background-color: #f3e5e5;

@@ -1,6 +1,7 @@
 // About User, XP Donut, Calendar, small achiievement banner 
 
 import { useEffect, useState } from 'react'
+import XpDonut from '../components/XpDonut'
 
 export default function Account() {
 
@@ -33,8 +34,7 @@ export default function Account() {
             <div>
                 <h2>Progress</h2>
 
-                <p>Level: {user.level ?? 1}</p>
-                <p>XP: {user.xp ?? 0}</p>
+                <XpDonut xp={user.xp ?? 0} level={user.level ?? 1} />
                 <p>Daily Goal: {user.dailyGoal ?? 0}</p>
                 <p>Charms Collected: {user.charms?.length ?? 0 }</p>
             </div>
