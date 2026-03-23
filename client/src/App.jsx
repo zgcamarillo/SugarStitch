@@ -11,6 +11,7 @@ import Journal from './pages/Journal'
 import Mission from './pages/Mission'
 import SavedPatterns from './pages/SavedPatterns'
 import ProtectedRoute from './components/ProtectedRoute'
+import PatternDetail from './pages/PatternDetail'
 
 export default function App() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
             <SavedPatterns />
           </ProtectedRoute>
         } /> 
+        <Route path="/patterns/:id" element={<PatternDetail />} />
 
         <Route path="/stitch-library" element={
           <ProtectedRoute>

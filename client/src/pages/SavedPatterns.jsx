@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import api from '../services/api'
+import { useNavigate } from 'react-router-dom'
 
 function SavedPatterns() {
   const [patterns, setPatterns] = useState([])
   const [error, setError] = useState('')
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchPatterns = async () => {
@@ -37,12 +39,13 @@ function SavedPatterns() {
         patterns.map((pattern) => (
           <div
             key={pattern._id}
-            style={{
-              border: '1px solid #ddd',
-              padding: '1rem',
-              marginBottom: '1rem',
-            }}
-          >
+            onClick={() => navigate(`/patterns/${pattern._id}`)}
+             style={{
+                border: '1px solid #ddd',
+                padding: '1rem',
+                marginBottom: '1rem',
+                cursor: 'pointer',
+                }}>
             <h2>{pattern.title}</h2>
             <p><strong>Difficulty:</strong> {pattern.difficulty}</p>
             <p><strong>Yarn:</strong> {pattern.estimatedYarn}</p>
