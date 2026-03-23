@@ -1,4 +1,5 @@
 const Pattern = require('../models/Pattern')
+const User = require('../models/User')
 
 const generatePattern = async (req, res) => {
   try {
@@ -12,7 +13,10 @@ const generatePattern = async (req, res) => {
       { text: 'Create a magic ring', completed: false },
       { text: 'Crochet 6 single crochets into the ring', completed: false },
       { text: 'Increase evenly in the next round', completed: false },
-      { text: `Shape the project based on the idea: ${prompt}`, completed: false },
+      {
+        text: `Shape the project based on the idea: ${prompt}`,
+        completed: false,
+      },
       { text: 'Finish off and weave in the ends', completed: false },
     ]
 
@@ -48,6 +52,7 @@ Pattern:
     res.status(500).json({ message: error.message })
   }
 }
+
 const updatePatternStep = async (req, res) => {
   try {
     const { patternId, stepId } = req.params
@@ -68,9 +73,20 @@ const updatePatternStep = async (req, res) => {
       return res.status(404).json({ message: 'Step not found' })
     }
 
+    const wasCompleted = step.completed
     step.completed = completed
 
     await pattern.save()
+
+    if (!wasCompleted && completed) {
+      const user = await User.findById(req.user._id)
+
+      if (user) {
+        user.xp += 10
+        user.level = Math.floor(user.xp / 100) + 1
+        await user.save()
+      }
+    }
 
     res.json({
       message: 'Step updated successfully',
@@ -80,6 +96,7 @@ const updatePatternStep = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
+
 const getUserPatterns = async (req, res) => {
   try {
     const patterns = await Pattern.find({ user: req.user._id }).sort({
@@ -91,6 +108,7 @@ const getUserPatterns = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
+
 const getPatternById = async (req, res) => {
   try {
     const pattern = await Pattern.findOne({
@@ -107,4 +125,10 @@ const getPatternById = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
-module.exports = { generatePattern, updatePatternStep, getUserPatterns, getPatternById }
+
+module.exports = {
+  generatePattern,
+  updatePatternStep,
+  getUserPatterns,
+  getPatternById,
+}
