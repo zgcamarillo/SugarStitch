@@ -4,11 +4,13 @@ const {
   generatePattern,
   updatePatternStep,
   getUserPatterns,
+  getPatternById
 } = require('../controllers/patternController')
 const { protect } = require('../middleware/authMiddleware')
 
 router.post('/generate', protect, generatePattern)
 router.get('/', protect, getUserPatterns)
 router.patch('/:patternId/steps/:stepId', protect, updatePatternStep)
+router.get('/:patternId', protect, getPatternById)
 
 module.exports = router

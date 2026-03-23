@@ -91,5 +91,20 @@ const getUserPatterns = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
+const getPatternById = async (req, res) => {
+  try {
+    const pattern = await Pattern.findOne({
+      _id: req.params.patternId,
+      user: req.user._id,
+    })
 
-module.exports = { generatePattern, updatePatternStep, getUserPatterns }
+    if (!pattern) {
+      return res.status(404).json({ message: 'Pattern not found' })
+    }
+
+    res.json(pattern)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
+module.exports = { generatePattern, updatePatternStep, getUserPatterns, getPatternById }
