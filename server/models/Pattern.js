@@ -34,6 +34,21 @@ const patternSchema = new mongoose.Schema(
       enum: ['beginner', 'intermediate', 'advanced'],
       default: 'beginner',
     },
+    steps: {
+      type: [
+        {
+      text: {
+        type: String,
+        required: true,
+        },
+      completed: {
+        type: Boolean,
+        default: false,
+        },
+      },
+      ],
+  default: [],
+},
   },
   { timestamps: true }
 )

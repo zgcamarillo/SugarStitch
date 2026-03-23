@@ -8,17 +8,25 @@ const generatePattern = async (req, res) => {
       return res.status(400).json({ message: 'Title and prompt are required' })
     }
 
+    const steps = [
+      { text: 'Create a magic ring', completed: false },
+      { text: 'Crochet 6 single crochets into the ring', completed: false },
+      { text: 'Increase evenly in the next round', completed: false },
+      { text: `Shape the project based on the idea: ${prompt}`, completed: false },
+      { text: 'Finish off and weave in the ends', completed: false },
+    ]
+
     const generatedPattern = `
 Sugar Stitch Pattern: ${title}
 
 Difficulty: ${difficulty || 'beginner'}
 
 Pattern:
-1. Start with a magic ring.
+1. Create a magic ring.
 2. Crochet 6 single crochets into the ring.
 3. Increase evenly in the next round.
-4. Continue building the shape based on your design idea: ${prompt}
-5. Finish off and weave in ends.
+4. Shape the project based on your design idea: ${prompt}
+5. Finish off and weave in the ends.
 `
 
     const newPattern = await Pattern.create({
@@ -29,6 +37,7 @@ Pattern:
       generatedPattern,
       estimatedYarn: '1-2 skeins',
       estimatedTime: '2-4 hours',
+      steps,
     })
 
     res.status(201).json({
