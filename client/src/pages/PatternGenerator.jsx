@@ -41,6 +41,26 @@ function PatternGenerator() {
     }
   }
 
+  const handleStepToggle = async (stepId, currentCompleted) => {
+    try {
+      const token = localStorage.getItem('token')
+
+      const response = await api.patch(
+        `/patterns/${generatedPattern._id}/steps/${stepId}`,
+        { completed: !currentCompleted },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      setGeneratedPattern(response.data.pattern)
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to update step')
+    }
+  }
+
   return (
     <div>
       <h1>Pattern Generator</h1>
@@ -103,7 +123,11 @@ function PatternGenerator() {
                 key={step._id}
                 style={{ display: 'block', marginBottom: '0.75rem' }}
               >
-                <input type="checkbox" checked={step.completed} readOnly />{' '}
+                <input
+                  type="checkbox"
+                  checked={step.completed}
+                  onChange={() => handleStepToggle(step._id, step.completed)}
+                />{' '}
                 {step.text}
               </label>
             ))}
