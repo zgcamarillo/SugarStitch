@@ -48,5 +48,37 @@ Pattern:
     res.status(500).json({ message: error.message })
   }
 }
+const updatePatternStep = async (req, res) => {
+  try {
+    const { patternId, stepId } = req.params
+    const { completed } = req.body
 
-module.exports = { generatePattern }
+    const pattern = await Pattern.findOne({
+      _id: patternId,
+      user: req.user._id,
+    })
+
+    if (!pattern) {
+      return res.status(404).json({ message: 'Pattern not found' })
+    }
+
+    const step = pattern.steps.id(stepId)
+
+    if (!step) {
+      return res.status(404).json({ message: 'Step not found' })
+    }
+
+    step.completed = completed
+
+    await pattern.save()
+
+    res.json({
+      message: 'Step updated successfully',
+      pattern,
+    })
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
+
+module.exports = { generatePattern, updatePatternStep }
