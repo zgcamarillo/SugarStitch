@@ -80,5 +80,16 @@ const updatePatternStep = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
+const getUserPatterns = async (req, res) => {
+  try {
+    const patterns = await Pattern.find({ user: req.user._id }).sort({
+      createdAt: -1,
+    })
 
-module.exports = { generatePattern, updatePatternStep }
+    res.json(patterns)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
+
+module.exports = { generatePattern, updatePatternStep, getUserPatterns }
