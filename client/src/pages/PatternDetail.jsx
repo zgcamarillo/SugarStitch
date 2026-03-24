@@ -6,6 +6,7 @@ function PatternDetail() {
   const { id } = useParams()
   const [pattern, setPattern] = useState(null)
   const [error, setError] = useState('')
+  const [xpPopup, setXpPopup] = useState(false)
 
   useEffect(() => {
     const fetchPattern = async () => {
@@ -42,15 +43,42 @@ function PatternDetail() {
       )
 
       setPattern(response.data.pattern)
+
+      if (!currentCompleted) {
+        setXpPopup(true)
+
+        setTimeout(() => {
+          setXpPopup(false)
+        }, 1500)
+      }
     } catch (err) {
       setError('Failed to update step')
     }
   }
 
+  if (error) return <p>{error}</p>
   if (!pattern) return <p>Loading...</p>
 
   return (
     <div>
+      {xpPopup && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '20px',
+            right: '20px',
+            background: '#f8d7da',
+            color: '#3d2c2e',
+            padding: '0.75rem 1rem',
+            borderRadius: '12px',
+            fontWeight: 'bold',
+            boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
+          }}
+        >
+          +10 XP ✨
+        </div>
+      )}
+
       <h1>{pattern.title}</h1>
 
       <p><strong>Difficulty:</strong> {pattern.difficulty}</p>
@@ -64,12 +92,12 @@ function PatternDetail() {
 
       <h3>Steps</h3>
       {pattern.steps.map((step) => (
-        <label key={step._id} style={{ display: 'block' }}>
+        <label key={step._id} style={{ display: 'block', marginBottom: '0.75rem' }}>
           <input
             type="checkbox"
             checked={step.completed}
             onChange={() => handleStepToggle(step._id, step.completed)}
-          />
+          />{' '}
           {step.text}
         </label>
       ))}
