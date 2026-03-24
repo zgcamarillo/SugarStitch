@@ -37,7 +37,7 @@ function Account() {
 
   return (
     <div>
-      <h1>Welcome, {user.firstName} ✨</h1>
+      <h1>Welcome, {user.firstName} </h1>
 
       <div>
         <h2>My Dashboard</h2>

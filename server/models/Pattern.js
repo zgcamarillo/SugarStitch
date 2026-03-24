@@ -17,6 +17,10 @@ const patternSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    imageUrl: {
+    type: String,
+    default: '',
+    },
     generatedPattern: {
       type: String,
       required: true,

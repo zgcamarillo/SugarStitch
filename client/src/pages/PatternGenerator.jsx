@@ -9,6 +9,7 @@ function PatternGenerator() {
   })
 
   const [generatedPattern, setGeneratedPattern] = useState(null)
+  const [image, setImage] = useState(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -19,6 +20,10 @@ function PatternGenerator() {
     })
   }
 
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0])
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
@@ -27,14 +32,25 @@ function PatternGenerator() {
     try {
       const token = localStorage.getItem('token')
 
-      const response = await api.post('/patterns/generate', formData, {
+      const formPayload = new FormData()
+      formPayload.append('title', formData.title)
+      formPayload.append('prompt', formData.prompt)
+      formPayload.append('difficulty', formData.difficulty)
+
+      if (image) {
+        formPayload.append('image', image)
+      }
+
+      const response = await api.post('/patterns/generate', formPayload, {
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
         },
       })
 
       setGeneratedPattern(response.data.pattern)
     } catch (err) {
+      console.error(err)
       setError(err.response?.data?.message || 'Something went wrong')
     } finally {
       setLoading(false)
@@ -57,6 +73,7 @@ function PatternGenerator() {
 
       setGeneratedPattern(response.data.pattern)
     } catch (err) {
+      console.error(err)
       setError(err.response?.data?.message || 'Failed to update step')
     }
   }
@@ -86,6 +103,13 @@ function PatternGenerator() {
         />
         <br /><br />
 
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+        />
+        <br /><br />
+
         <select
           name="difficulty"
           value={formData.difficulty}
@@ -110,6 +134,17 @@ function PatternGenerator() {
           <p><strong>Difficulty:</strong> {generatedPattern.difficulty}</p>
           <p><strong>Estimated Yarn:</strong> {generatedPattern.estimatedYarn}</p>
           <p><strong>Estimated Time:</strong> {generatedPattern.estimatedTime}</p>
+
+          {generatedPattern.image && (
+            <div>
+              <h3>Reference Image</h3>
+              <img
+                src={generatedPattern.image}
+                alt={generatedPattern.title}
+                style={{ maxWidth: '300px', borderRadius: '10px' }}
+              />
+            </div>
+          )}
 
           <h3>Full Pattern</h3>
           <pre style={{ whiteSpace: 'pre-wrap' }}>

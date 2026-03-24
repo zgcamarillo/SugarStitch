@@ -1,37 +1,92 @@
 const Pattern = require('../models/Pattern')
 const User = require('../models/User')
+const { GoogleGenAI } = require('@google/genai')
+
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
 
 const generatePattern = async (req, res) => {
   try {
     const { title, prompt, difficulty } = req.body
+    const imageUrl = req.file ? `/uploads/${req.file.filename}` : ''
 
     if (!title || !prompt) {
       return res.status(400).json({ message: 'Title and prompt are required' })
     }
 
-    const steps = [
-      { text: 'Create a magic ring', completed: false },
-      { text: 'Crochet 6 single crochets into the ring', completed: false },
-      { text: 'Increase evenly in the next round', completed: false },
-      {
-        text: `Shape the project based on the idea: ${prompt}`,
-        completed: false,
-      },
-      { text: 'Finish off and weave in the ends', completed: false },
-    ]
+    const aiPrompt = `
+        You are a crochet pattern assistant for an app called Sugar Stitch.
 
-    const generatedPattern = `
-Sugar Stitch Pattern: ${title}
+        Create a crochet pattern for this project:
+        Title: ${title}
+        Idea: ${prompt}
+        Difficulty: ${difficulty || 'beginner'}
 
-Difficulty: ${difficulty || 'beginner'}
+        Return the response in this exact format:
 
-Pattern:
-1. Create a magic ring.
-2. Crochet 6 single crochets into the ring.
-3. Increase evenly in the next round.
-4. Shape the project based on your design idea: ${prompt}
-5. Finish off and weave in the ends.
-`
+        TITLE:
+        <short project title>
+
+        DIFFICULTY:
+        <difficulty>
+
+        ESTIMATED_YARN:
+        <short yarn estimate>
+
+        ESTIMATED_TIME:
+        <short time estimate>
+
+        PATTERN:
+        <number the steps clearly, one per line>
+
+        STEPS:
+        - <short checklist step>
+        - <short checklist step>
+        - <short checklist step>
+        - <short checklist step>
+        - <short checklist step>
+
+        Keep it beginner-friendly when possible.
+        `
+
+    const response = await ai.models.generateContent({
+      model: 'gemini-3-flash-preview',
+      contents: aiPrompt,
+    })
+
+    const text = response.text || ''
+
+    let estimatedYarn = '1-2 skeins'
+    let estimatedTime = '2-4 hours'
+    let generatedPattern = text
+
+    const yarnMatch = text.match(/ESTIMATED_YARN:\s*(.*)/)
+    const timeMatch = text.match(/ESTIMATED_TIME:\s*(.*)/)
+
+    if (yarnMatch) estimatedYarn = yarnMatch[1].trim()
+    if (timeMatch) estimatedTime = timeMatch[1].trim()
+
+    const stepsSectionMatch = text.match(/STEPS:\s*([\s\S]*)/)
+    let steps = []
+
+    if (stepsSectionMatch) {
+      steps = stepsSectionMatch[1]
+        .split('\n')
+        .map((line) => line.replace(/^-+\s*/, '').trim())
+        .filter(Boolean)
+        .map((stepText) => ({
+          text: stepText,
+          completed: false,
+        }))
+    }
+
+    if (steps.length === 0) {
+      steps = [
+        { text: 'Create a magic ring', completed: false },
+        { text: 'Crochet the first round', completed: false },
+        { text: 'Shape the main body', completed: false },
+        { text: 'Finish and weave in ends', completed: false },
+      ]
+    }
 
     const newPattern = await Pattern.create({
       user: req.user._id,
@@ -39,9 +94,10 @@ Pattern:
       prompt,
       difficulty: difficulty || 'beginner',
       generatedPattern,
-      estimatedYarn: '1-2 skeins',
-      estimatedTime: '2-4 hours',
+      estimatedYarn,
+      estimatedTime,
       steps,
+      imageUrl,
     })
 
     res.status(201).json({

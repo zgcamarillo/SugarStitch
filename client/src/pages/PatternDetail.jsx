@@ -75,7 +75,7 @@ function PatternDetail() {
             boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
           }}
         >
-          +10 XP ✨
+          +10 XP
         </div>
       )}
 
