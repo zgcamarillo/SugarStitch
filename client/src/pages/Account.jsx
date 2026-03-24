@@ -1,43 +1,61 @@
-// About User, XP Donut, Calendar, small achiievement banner 
-
 import { useEffect, useState } from 'react'
+import api from '../services/api'
 import XpDonut from '../components/XpDonut'
 
-export default function Account() {
+function Account() {
+  const [user, setUser] = useState(null)
+  const [error, setError] = useState('')
 
-    const [user, setUser] = useState(null)
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const token = localStorage.getItem('token')
 
-    useEffect(() => {
-        const storedUser = localStorage.getItem('user')
+        const response = await api.get('/auth/me', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
 
-        if (storedUser) {
-            setUser(JSON.parse(storedUser))
-        }
-    }, [])
-
-    if (!user) {
-        return <h1>Loading account...</h1>
+        setUser(response.data)
+        localStorage.setItem('user', JSON.stringify(response.data))
+      } catch (err) {
+        setError(err.response?.data?.message || 'Failed to load account')
+      }
     }
 
-    return (
-        <div>
-            <h1>Welcome, {user.firstName}</h1>
+    fetchCurrentUser()
+  }, [])
 
-            <div>
-                <h2>DASHBOARD</h2>
+  if (error) {
+    return <p>{error}</p>
+  }
 
-                <p>{user.firstName} {user.lastName || ''}</p>
-                <p>{user.email}</p>
-                <p>Expertise: {user.expertise || 'beginner'}</p>
-            </div>
+  if (!user) {
+    return <h1>Loading account...</h1>
+  }
 
-            <div>
-                <h2>Progress</h2>
+  return (
+    <div>
+      <h1>Welcome, {user.firstName} ✨</h1>
 
-                <XpDonut xp={user.xp ?? 0} level={user.level ?? 1} />
-                <p>Daily Goal: {user.dailyGoal ?? 0}</p>
-                <p>Charms Collected: {user.charms?.length ?? 0 }</p>
-            </div>
-        </div>
-    )
+      <div>
+        <h2>My Dashboard</h2>
+        <p><strong>Name:</strong> {user.firstName} {user.lastName || ''}</p>
+        <p><strong>Email:</strong> {user.email}</p>
+        <p><strong>Expertise:</strong> {user.expertise || 'beginner'}</p>
+        <p><strong>Role:</strong> {user.role}</p>
+      </div>
+
+      <div>
+        <h2>Progress</h2>
+        <XpDonut xp={user.xp ?? 0} level={user.level ?? 1} />
+        <p><strong>Daily Goal:</strong> {user.dailyGoal ?? 0}</p>
+        <p><strong>Weekly Goal:</strong> {user.weeklyGoal ?? 0}</p>
+        <p><strong>Charms Collected:</strong> {user.charms?.length ?? 0}</p>
+      </div>
+    </div>
+  )
 }
+
+export default Account
