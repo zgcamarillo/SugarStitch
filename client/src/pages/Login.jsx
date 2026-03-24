@@ -1,7 +1,7 @@
 // Auth 
 
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import api from '../services/api'
 
 export default function Login() {
@@ -56,6 +56,9 @@ export default function Login() {
 
                 <button type="submit">Login</button>
             </form>
+            <div className="forgot-password-link">
+                <Link to="/forgot-password">Forgot Password?</Link>
+            </div>
 
             {message && <p>{message}</p>}
             {error && <p>{error}</p>}

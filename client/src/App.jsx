@@ -12,6 +12,8 @@ import Mission from './pages/Mission'
 import SavedPatterns from './pages/SavedPatterns'
 import ProtectedRoute from './components/ProtectedRoute'
 import PatternDetail from './pages/PatternDetail'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 
 export default function App() {
   return (
@@ -19,7 +21,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} /> 
         <Route path="/mission" element={<Mission />} /> 
-        <Route path="/login" element={<Login />} /> 
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} /> 
         <Route path="/register" element={<Register />} />
 
         <Route path="/account" element={

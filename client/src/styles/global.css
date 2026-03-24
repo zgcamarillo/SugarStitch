@@ -1,8 +1,22 @@
+/* ============ VARIABLES ================ */
+:root {
+  --sage: #9CAF88;
+  --cream: #FFF8F2;
+  --beige: #E6D3B3;
+
+  --terracotta: #E07A5F;
+  --coral: #F28482;
+  --mustard: #E9C46A;
+  --sky: #A8DADC;
+
+  --text-dark: #4A3F35;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #fffaf8;
-  color: #3d2c2e;
+  background-color: var(--cream);
+  color: var(te);
 }
 
 a {
@@ -17,7 +31,7 @@ a {
 
 
 .navbar {
-  background-color: #f8d7da;
+  background-color: var(--sage);
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
