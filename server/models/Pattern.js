@@ -17,10 +17,23 @@ const patternSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    imageUrl: {
-    type: String,
-    default: '',
+
+    isEcoFriendly: {
+      type: Boolean,
+      default: false,
     },
+
+  
+    isCompleted: {
+      type: Boolean,
+      default: false,
+    },
+
+    imageUrl: {
+      type: String,
+      default: '',
+    },
+
     generatedPattern: {
       type: String,
       required: true,
@@ -38,21 +51,38 @@ const patternSchema = new mongoose.Schema(
       enum: ['beginner', 'intermediate', 'advanced'],
       default: 'beginner',
     },
+    yarnType: {
+      type: String,
+      enum: [
+        'cotton',
+        'organic-cotton',
+        'acrylic',
+        'wool',
+        'bamboo',
+        'hemp',
+        'linen',
+        'recycled',
+        'blended',
+        'other',
+      ],
+      default: 'cotton',
+    },
+
     steps: {
       type: [
         {
-      text: {
-        type: String,
-        required: true,
+          text: {
+            type: String,
+            required: true,
+          },
+          completed: {
+            type: Boolean,
+            default: false,
+          },
         },
-      completed: {
-        type: Boolean,
-        default: false,
-        },
-      },
       ],
-  default: [],
-},
+      default: [],
+    },
   },
   { timestamps: true }
 )

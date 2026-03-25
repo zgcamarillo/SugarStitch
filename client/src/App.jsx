@@ -8,7 +8,7 @@ import PatternGenerator from './pages/PatternGenerator'
 import Achievements from './pages/Achievements'
 import StitchLibrary from './pages/StitchLibrary'
 import Journal from './pages/Journal'
-import Mission from './pages/Mission'
+import EcoGuide from './pages/EcoGuide'
 import SavedPatterns from './pages/SavedPatterns'
 import ProtectedRoute from './components/ProtectedRoute'
 import PatternDetail from './pages/PatternDetail'
@@ -20,7 +20,7 @@ export default function App() {
     <MainLayout>
       <Routes>
         <Route path="/" element={<Home />} /> 
-        <Route path="/mission" element={<Mission />} /> 
+        <Route path="/eco-guide" element={<EcoGuide />} /> 
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} /> 

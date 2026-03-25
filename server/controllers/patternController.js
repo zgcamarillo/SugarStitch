@@ -6,47 +6,62 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
 
 const generatePattern = async (req, res) => {
   try {
-    const { title, prompt, difficulty } = req.body
+    const { title, prompt, difficulty, yarnType } = req.body
     const imageUrl = req.file ? `/uploads/${req.file.filename}` : ''
 
     if (!title || !prompt) {
       return res.status(400).json({ message: 'Title and prompt are required' })
     }
 
+    const ecoFriendlyYarns = [
+      'organic-cotton',
+      'wool',
+      'bamboo',
+      'hemp',
+      'linen',
+      'recycled',
+    ]
+
+    const normalizedYarnType = (yarnType || 'cotton').toLowerCase().trim()
+    const ecoFlag = ecoFriendlyYarns.includes(normalizedYarnType)
+
     const aiPrompt = `
-        You are a crochet pattern assistant for an app called Sugar Stitch.
+      You are a crochet pattern assistant for an app called Sugar Stitch.
 
-        Create a crochet pattern for this project:
-        Title: ${title}
-        Idea: ${prompt}
-        Difficulty: ${difficulty || 'beginner'}
+      Create a crochet pattern for this project:
+      Title: ${title}
+      Idea: ${prompt}
+      Difficulty: ${difficulty || 'beginner'}
+      Available Yarn Type: ${normalizedYarnType}
 
-        Return the response in this exact format:
+      Make the pattern suitable for that yarn type when possible.
 
-        TITLE:
-        <short project title>
+      Return the response in this exact format:
 
-        DIFFICULTY:
-        <difficulty>
+      TITLE:
+      <short project title>
 
-        ESTIMATED_YARN:
-        <short yarn estimate>
+      DIFFICULTY:
+      <difficulty>
 
-        ESTIMATED_TIME:
-        <short time estimate>
+      ESTIMATED_YARN:
+      <short yarn estimate>
 
-        PATTERN:
-        <number the steps clearly, one per line>
+      ESTIMATED_TIME:
+      <short time estimate>
 
-        STEPS:
-        - <short checklist step>
-        - <short checklist step>
-        - <short checklist step>
-        - <short checklist step>
-        - <short checklist step>
+      PATTERN:
+      <number the steps clearly, one per line>
 
-        Keep it beginner-friendly when possible.
-        `
+      STEPS:
+      - <short checklist step>
+      - <short checklist step>
+      - <short checklist step>
+      - <short checklist step>
+      - <short checklist step>
+
+      Keep it beginner-friendly when possible.
+    `
 
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
@@ -93,12 +108,27 @@ const generatePattern = async (req, res) => {
       title,
       prompt,
       difficulty: difficulty || 'beginner',
+      yarnType: normalizedYarnType,
       generatedPattern,
       estimatedYarn,
       estimatedTime,
       steps,
       imageUrl,
+      isEcoFriendly: ecoFlag,
+      isCompleted: false,
     })
+
+    const user = await User.findById(req.user._id)
+
+    if (user) {
+      user.patternsCreated = (user.patternsCreated || 0) + 1
+
+      if (ecoFlag) {
+        user.ecoProjects = (user.ecoProjects || 0) + 1
+      }
+
+      await user.save()
+    }
 
     res.status(201).json({
       message: 'Pattern generated successfully',
@@ -130,18 +160,33 @@ const updatePatternStep = async (req, res) => {
     }
 
     const wasCompleted = step.completed
-    step.completed = completed
+    const nextCompletedValue = completed === true || completed === 'true'
 
+    step.completed = nextCompletedValue
     await pattern.save()
 
-    if (!wasCompleted && completed) {
-      const user = await User.findById(req.user._id)
+    const user = await User.findById(req.user._id)
+
+    if (user && !wasCompleted && nextCompletedValue) {
+      user.xp = (user.xp || 0) + 10
+      user.level = Math.floor(user.xp / 100) + 1
+    }
+
+    const allStepsCompleted =
+      pattern.steps.length > 0 &&
+      pattern.steps.every((step) => step.completed)
+
+    if (allStepsCompleted && !pattern.isCompleted) {
+      pattern.isCompleted = true
+      await pattern.save()
 
       if (user) {
-        user.xp += 10
-        user.level = Math.floor(user.xp / 100) + 1
-        await user.save()
+        user.projectsCompleted = (user.projectsCompleted || 0) + 1
       }
+    }
+
+    if (user) {
+      await user.save()
     }
 
     res.json({

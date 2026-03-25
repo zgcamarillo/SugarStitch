@@ -6,6 +6,7 @@ function PatternGenerator() {
     title: '',
     prompt: '',
     difficulty: 'beginner',
+    yarnType: 'cotton'
   })
 
   const [generatedPattern, setGeneratedPattern] = useState(null)
@@ -36,6 +37,7 @@ function PatternGenerator() {
       formPayload.append('title', formData.title)
       formPayload.append('prompt', formData.prompt)
       formPayload.append('difficulty', formData.difficulty)
+      formPayload.append('yarnType', formData.yarnType)
 
       if (image) {
         formPayload.append('image', image)
@@ -120,6 +122,27 @@ function PatternGenerator() {
           <option value="advanced">Advanced</option>
         </select>
         <br /><br />
+        <div className="form-group">
+          <label htmlFor="yarnType">What type of yarn do you have?</label>
+          <select
+            id="yarnType"
+            name="yarnType"
+            value={formData.yarnType}
+            onChange={handleChange}
+          >
+            <option value="cotton">Cotton</option>
+            <option value="organic-cotton">Organic Cotton</option>
+            <option value="acrylic">Acrylic</option>
+            <option value="wool">Wool</option>
+            <option value="bamboo">Bamboo</option>
+            <option value="hemp">Hemp</option>
+            <option value="linen">Linen</option>
+            <option value="recycled">Recycled Yarn</option>
+            <option value="blended">Blended Yarn</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <br></br>
 
         <button type="submit" disabled={loading}>
           {loading ? 'Generating...' : 'Generate Pattern'}

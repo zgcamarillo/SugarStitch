@@ -39,7 +39,7 @@ const registerUser = async (req, res) => {
     })
 
     res.status(201).json({
-      message: 'User registered successsfully',
+      message: 'User registered successfully',
       user: {
         id: newUser._id,
         firstName: newUser.firstName,
@@ -73,7 +73,7 @@ const loginUser = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password)
 
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid credentialss' })
+      return res.status(400).json({ message: 'Invalid credentials' })
     }
 
     res.json({
@@ -89,7 +89,7 @@ const loginUser = async (req, res) => {
         xp: user.xp,
         level: user.level,
         dailyGoal: user.dailyGoal,
-        charms: user.Charms,
+        charms: user.charms,
       },
     })
   } catch (error) {
