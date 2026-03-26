@@ -1,67 +1,83 @@
-// Auth 
-
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import api from '../services/api'
 
 export default function Login() {
-    const navigate = useNavigate()
+  const navigate = useNavigate()
 
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  })
+
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
     })
+  }
 
-    const [message, setMessage] = useState('')
-    const [error, setError] = useState('')
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setMessage('')
+    setError('')
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        })
+    try {
+      const response = await api.post('/auth/login', formData)
+
+      localStorage.setItem('token', response.data.token)
+      localStorage.setItem('user', JSON.stringify(response.data.user))
+
+      // tell Navbar to update immediately
+      window.dispatchEvent(new Event('authChange'))
+
+      setMessage(response.data.message)
+
+      setTimeout(() => {
+        navigate('/account')
+      }, 1000)
+    } catch (err) {
+      setError(err.response?.data?.message || 'Something went wrong')
     }
+  }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        setMessage('')
-        setError('')
+  return (
+    <div>
+      <h1>LOGIN</h1>
 
-        try {
-            const response = await api.post('/auth/login', formData)
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <br />
 
-            localStorage.setItem('token', response.data.token)
-            localStorage.setItem('user', JSON.stringify(response.data.user))
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+        <br />
 
-            setMessage(response.data.message)
+        <button type="submit">Login</button>
+      </form>
 
-            setTimeout(() => {
-                navigate('/account')
-            }, 1000)
-        } catch (err) {
-            setError(err.response?.data?.message || 'Something went wrong')
-        }
-    }
+      <div className="forgot-password-link">
+        <Link to="/forgot-password">Forgot Password?</Link>
+      </div>
 
-
-    return (
-        <div>
-            <h1>LOGIN</h1>
-
-            <form onSubmit={handleSubmit}>
-                <input type="email" name="email" placeholder="Email" calue={formData.email} onChange={handleChange} required />
-                <br></br>
-                <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
-                <br></br>
-
-                <button type="submit">Login</button>
-            </form>
-            <div className="forgot-password-link">
-                <Link to="/forgot-password">Forgot Password?</Link>
-            </div>
-
-            {message && <p>{message}</p>}
-            {error && <p>{error}</p>}
-        </div>
-    )
+      {message && <p>{message}</p>}
+      {error && <p>{error}</p>}
+    </div>
+  )
 }
