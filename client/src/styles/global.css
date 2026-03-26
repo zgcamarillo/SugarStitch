@@ -1,10 +1,13 @@
 /* ============ VARIABLES ================ */
 :root {
-  --lavendar: #F4DFE6;
-  --pink: #E0A3BB;
-  --azure: #D6E6E7;
-  --citron: #C5CC81;
-  --green: #97A13B;
+  --yellow: #e6D18c;
+  --lightgreen: #9FB279;
+  --darkred: #A13C36;
+  --darkgreen: #798E61;
+  --peach: #d7aca7;
+  --lightred: #c1645b;
+  --lightpeach: #e6d2d0;
+
 }
 * {
   padding: 0;
@@ -168,7 +171,374 @@ a {
   height: 50px;
   object-fit: contain;
 }
- 
+/* ===========================================
+============== JOURNAL ======================
+============================================= */
+.journal-page {
+  padding: 2rem;
+  background: #fdf8f4;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+.journal-hero-card {
+  background: linear-gradient(135deg, #f7efe7, #fff);
+  padding: 1.5rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.eco-tip-card {
+  background: #eef6f1;
+  border-left: 6px solid #a3a380;
+  padding: 1rem;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+}
+
+.goal-card {
+  background: #fffaf5;
+  padding: 1rem;
+  border-radius: 18px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.goal-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.goal-input {
+  width: 80px;
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid #e6dcd2;
+  background: #fff;
+  color: #5c4b45;
+}
+
+.journal-alert {
+  padding: 0.75rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.journal-alert.success {
+  background: #e7f7ed;
+  color: #2e7d32;
+}
+
+.journal-alert.error {
+  background: #fdecea;
+  color: #c62828;
+}
+
+.journal-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 2rem;
+}
+
+.calendar-card,
+.entry-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* ===== CALENDAR ===== */
+.cute-calendar {
+  width: 100%;
+  border: none !important;
+  border-radius: 22px;
+  padding: 1rem;
+  background: #fffaf5;
+  box-shadow: inset 0 0 0 1px #f2e6dc;
+}
+
+/* Navigation */
+.react-calendar__navigation {
+  margin-bottom: 1rem;
+}
+
+.react-calendar__navigation button {
+  color: #6e5a53 !important;
+  background: transparent !important;
+  min-width: 44px;
+  font-size: 1rem;
+  border-radius: 12px;
+  transition: 0.2s ease;
+}
+
+.react-calendar__navigation button:hover {
+  background: #f7efe7 !important;
+}
+
+.react-calendar__navigation button:disabled {
+  background: transparent !important;
+  opacity: 0.5;
+}
+
+/* Weekday labels */
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  padding: 0.5rem 0;
+  color: #8b6f65 !important;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none;
+}
+
+/* Calendar grid */
+.react-calendar__viewContainer {
+  padding-top: 0.25rem;
+}
+
+.react-calendar__month-view__days {
+  gap: 0.35rem 0;
+}
+
+/* Day tiles */
+.react-calendar__tile {
+  position: relative;
+  height: 64px;
+  border: none !important;
+  border-radius: 18px;
+  background: transparent;
+  transition: all 0.2s ease;
+  color: #5b4c46 !important;
+  opacity: 1 !important;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.react-calendar__month-view__days__day {
+  color: #5b4c46 !important;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #c6b6ae !important;
+}
+
+/* Hover */
+.react-calendar__tile:hover {
+  background: #f8eee8 !important;
+  transform: translateY(-2px);
+}
+
+/* Today */
+.react-calendar__tile--now {
+  background: #fff1e7 !important;
+  color: #9c5f4d !important;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 2px #f0c7b1;
+}
+
+/* Selected day */
+.react-calendar__tile--active {
+  background: linear-gradient(135deg, #d8a48f, #c98d76) !important;
+  color: white !important;
+  box-shadow: 0 6px 14px rgba(216, 164, 143, 0.35);
+}
+
+.react-calendar__tile--active:hover {
+  background: linear-gradient(135deg, #d8a48f, #c98d76) !important;
+  color: white !important;
+}
+
+/* Special entry days */
+.has-entry-day {
+  background: #f7efe7 !important;
+  color: #6a564f !important;
+  box-shadow: inset 0 0 0 1px #ecd7ca;
+}
+
+.goal-met-day {
+  background: #e7f7ed !important;
+  color: #2e7d32 !important;
+  box-shadow: inset 0 0 0 1px #cfe8d8;
+}
+
+/* Marker styles */
+.calendar-dot {
+  width: 7px;
+  height: 7px;
+  background: #bb8588;
+  border-radius: 50%;
+  margin: 4px auto 0;
+  box-shadow: 0 0 0 3px rgba(187, 133, 136, 0.12);
+}
+
+.calendar-marker {
+  font-size: 0.8rem;
+  text-align: center;
+  margin-top: 3px;
+}
+
+/* Legend */
+.calendar-legend {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  flex-wrap: wrap;
+  color: #6f5b53;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  background: #bb8588;
+  border-radius: 50%;
+}
+
+.entry-card input,
+.entry-card textarea {
+  width: 100%;
+  margin-top: 0.4rem;
+  margin-bottom: 1rem;
+  padding: 0.8rem;
+  border-radius: 14px;
+  border: 1px solid #e6dcd2;
+  font-size: 0.95rem;
+  background: #fffdfa;
+  color: #5c4b45;
+}
+
+.entry-card input:focus,
+.entry-card textarea:focus,
+.goal-input:focus {
+  outline: none;
+  border-color: #d8a48f;
+  box-shadow: 0 0 0 3px rgba(216, 164, 143, 0.15);
+}
+
+.goal-status {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  color: #a66c5d;
+  font-weight: 500;
+}
+
+.journal-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+button {
+  background: linear-gradient(135deg, #d8a48f, #c98d76);
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 14px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  box-shadow: 0 6px 14px rgba(216, 164, 143, 0.22);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(216, 164, 143, 0.3);
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.delete-btn {
+  background: linear-gradient(135deg, #e88d8d, #d96a6a);
+  box-shadow: 0 6px 14px rgba(233, 115, 115, 0.2);
+}
+
+.delete-btn:hover {
+  box-shadow: 0 8px 18px rgba(233, 115, 115, 0.28);
+}
+
+.saved-entry-card {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: #fdf4ee;
+  border: 1px solid #f3e2d7;
+}
+
+.journal-image {
+  width: 220px;
+  max-width: 100%;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .journal-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .goal-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .journal-page {
+    padding: 1rem;
+  }
+
+  .calendar-card,
+  .entry-card,
+  .journal-hero-card,
+  .eco-tip-card,
+  .goal-card {
+    padding: 1rem;
+    border-radius: 18px;
+  }
+
+  .cute-calendar {
+    padding: 0.5rem;
+  }
+
+  .react-calendar__tile {
+    height: 56px;
+    font-size: 0.9rem;
+  }
+
+  .journal-buttons {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}
 /* =============================================
 ================FOOTER=======================
 ============================================ */

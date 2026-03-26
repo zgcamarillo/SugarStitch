@@ -8,9 +8,9 @@ const materials = [
     ecoScore: 10,
     image: "/images/hemp.jpg",
     stats: [
-      "💧 Low water usage",
-      "🌱 Improves soil health",
-      "♻️ Fully biodegradable"
+      "Low water usage",
+      "Improves soil health",
+      "Fully biodegradable"
     ],
     tagline: "The most sustainable fiber"
   },
@@ -19,9 +19,9 @@ const materials = [
     ecoScore: 9,
     image: "/images/recycled.jpg",
     stats: [
-      "💧 Saves thousands of liters of water",
-      "♻️ Reduces textile waste",
-      "🌍 Lower carbon footprint"
+      "Saves thousands of liters of water",
+      "Reduces textile waste",
+      "Lower carbon footprint"
     ],
     tagline: "Turning waste into beauty"
   },
@@ -30,9 +30,9 @@ const materials = [
     ecoScore: 8,
     image: "/images/wool.jpg",
     stats: [
-      "🔁 Renewable every year",
-      "🧶 Long-lasting",
-      "♻️ Biodegradable"
+      "Renewable every year",
+      "Long-lasting",
+      "Biodegradable"
     ],
     tagline: "Natural and durable"
   },
@@ -41,9 +41,9 @@ const materials = [
     ecoScore: 7,
     image: "/images/cotton.jpg",
     stats: [
-      "🌱 No harmful chemicals",
-      "👶 Safe for skin",
-      "♻️ Biodegradable"
+      "No harmful chemicals",
+      "Safe for skin",
+      "Biodegradable"
     ],
     tagline: "Soft and clean"
   },
@@ -52,9 +52,9 @@ const materials = [
     ecoScore: 7,
     image: "/images/bamboo.jpg",
     stats: [
-      "🌱 Fast-growing",
-      "💧 Low water use",
-      "✨ Soft and breathable"
+      "Fast-growing",
+      "Low water use",
+      "Soft and breathable"
     ],
     tagline: "Lightweight comfort"
   }

@@ -145,10 +145,10 @@ export default function Achievements() {
   ]
 
   const charms = [
-    { id: 'leaf', image: '/icons/leaf.png', name: 'Leaf Charm' },
-    { id: 'yarn', image: '/icons/yarn.png', name: 'Yarn Charm' },
-    { id: 'flower', image: '/icons/flower.png', name: 'Bloom Charm' },
-    { id: 'coffee', image: '/icons/coffee.png', name: 'Cozy Charm' },
+    { id: 'leaf', image: '/images/leaf.png', name: 'Leaf Charm' },
+    { id: 'yarn', image: '/images/yarn.png', name: 'Yarn Charm' },
+    { id: 'flower', image: '/images/flower.png', name: 'Bloom Charm' },
+    { id: 'coffee', image: '/images/coffee.png', name: 'Cozy Charm' },
     { id: 'turtle', image: '/icons/turtle.png', name: 'Slow Craft Charm' },
   ]
 
@@ -157,7 +157,7 @@ export default function Achievements() {
   return (
     <div className="page">
       <h1>Achievements & Charms</h1>
-      <p>Celebrate your crochet milestones and eco-friendly choices 🌱</p>
+      <p>Celebrate your crochet milestones and eco-friendly choices </p>
 
       <p>
         {unlockedAchievements.length} / {achievements.length} achievements unlocked

@@ -62,7 +62,7 @@ export default function Navbar() {
 
             <Link to="/login" className="nav-link">
               <img src={person} alt="Login" className="nav-logo" />
-              Login
+              Login / Register
             </Link>
           </>
         )}

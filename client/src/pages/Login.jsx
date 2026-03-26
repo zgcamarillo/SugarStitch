@@ -75,6 +75,9 @@ export default function Login() {
       <div className="forgot-password-link">
         <Link to="/forgot-password">Forgot Password?</Link>
       </div>
+      <div className="register-link">
+        <Link to="/register">Dont have account? Register here!</Link>
+      </div>
 
       {message && <p>{message}</p>}
       {error && <p>{error}</p>}

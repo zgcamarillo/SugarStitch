@@ -7,7 +7,7 @@ export default function MaterialCard({ name, ecoScore, stats, tagline, image }) 
         <h2>{name}</h2>
 
         <div className="eco-score">
-          🌱 Eco Score: <span>{ecoScore}/10</span>
+          Eco Score: <span>{ecoScore}/10</span>
         </div>
 
         <ul>
