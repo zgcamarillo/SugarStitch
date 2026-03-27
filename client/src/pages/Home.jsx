@@ -2,18 +2,21 @@
 
 export default function Home() {
     return (
-        <div>
+        <div id="home-page">
             <div className="hero">
+                <div className="hero-top">
+                    Sustainable Creations
+                </div>
                 <div className="hero-left">
-                    <h2>Crochet made simple, sustainable, and sweet.</h2>
-                    <p>At Sugar Stitch, our mission is to create a cozy, supportive space where crocheters of all levels can learn, stay motivated, and create with intention. We help beginners build confidence, guide makers in finishing their projects, and promote sustainable practices—one stitch at a time.</p>
+                    <img alt="Sugar Stitch Yarn" src="/images/yarn-ball.png" className="hero-yarn"/>
+                    <h2>Sugar Stitch</h2>
+                    <p>Crochet made simple, sustainable, and sweet.</p>
                 </div>
-                <div className="hero-right">
-                    <img src="images/homeheroyarn.jpg" alt="Hero Image"/>
-                </div>
-        
+               
+                
             </div>
-
+            <p>At Sugar Stitch, our mission is to create a cozy, supportive space where crocheters of all levels can learn, stay motivated, and create with intention. We help beginners build confidence, guide makers in finishing their projects, and promote sustainable practices—one stitch at a time.</p>
+        
 
             <div className="info-cards">
                 <div>

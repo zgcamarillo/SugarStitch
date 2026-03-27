@@ -226,10 +226,30 @@ const getPatternById = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
+const deletePattern = async (req, res) => {
+  try {
+    const pattern = await Pattern.findById(req.params.patternId)
 
+    if (!pattern) {
+      return res.status(404).json({ message: 'Pattern not found' })
+    }
+
+    // Make sure user owns the pattern
+    if (pattern.user.toString() !== req.user._id.toString()) {
+      return res.status(401).json({ message: 'Not authorized to delete this pattern' })
+    }
+
+    await pattern.deleteOne()
+
+    res.json({ message: 'Pattern deleted successfully' })
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
 module.exports = {
   generatePattern,
   updatePatternStep,
   getUserPatterns,
   getPatternById,
+  deletePattern,
 }
