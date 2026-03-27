@@ -2,7 +2,6 @@
 :root {
   --yellow: #e6d18c;
   --darkred: #a13c36;
-  --peach: #d7aca7;
   --lightred: #c1645b;
   --lightpeach: #e6d2d0;
 
@@ -10,33 +9,33 @@
   --border-pink: #dcb8b5;
   --citron: #eef6f1;
   --sage: #a3a380;
-
-  --lightgreen: #d7dab3;
   --lightpink: #fcebf1;
 
   --darkgreen: #1d3226;
   --green: #315f4a;
-  --cream: #faf5e1;
   --darkpink: #f660a6;
-  --pink: #fe9abe;
+
+  --peach: #f5a38b;
+  --cream: #fcf3e2;
+  --lime: #f1f0bf;
+  --skyblue: #bbd6f4;
+  --babyblue: #dce3f1;
+  --pink: #f4bdce;
+  --white: #ffffff;
 }
 
 
 /* =====================FONTS=============== */
 
 @font-face {
-  font-family: "Butterpop";
-  src: url('/fonts/butterpop/Butterpop.ttf')format('truetype');
-  font-weight: normal;
-  font-style: normal;
+  font-family: "Appeal";
+  src: url('/fonts/appeal.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "Newyork";
-  src: url('/fonts/newyork/newyork.otf') format('opentype');
+  font-family: "Nexline";
+  src: url('/fonts/Nexline.otf') format('opentype');
 }
-
-
 /* ================ GLOBAL RESET ============== */
 * {
   margin: 0;
@@ -61,63 +60,75 @@ img {
 ========================================= */
 
 .navbar {
-  min-height: 80px;
+  min-height: 130px;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem;
+  justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: var(--darkgreen);
+  background: var(--peach);
+  color: var(--cream);
+  padding: 0 2rem;
+  --mask:
+    radial-gradient(43.83px at 50% calc(100% - 59px),#000 99%,#0000 101%) calc(50% - 40px) 0/80px 100%,
+    radial-gradient(43.83px at 50% calc(100% + 39px),#0000 99%,#000 101%) 50% calc(100% - 20px)/80px 100% repeat-x;
+  -webkit-mask: var(--mask);
+          mask: var(--mask);
 }
 
 .logo {
-  width: 100%;
-  font-size: 24px;
+  font-size: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  color: var(--darkpink);
   text-align: center;
-  font-family: "Butterpop";
-}
-
-.logo-yarn {
-  height: 25px;
-  filter: invert(87%) sepia(39%) saturate(50%) hue-rotate(287deg) brightness(101%) contrast(98%);
+  font-family: "Appeal";
 }
 
 .nav-links {
-  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 14px;
-  font-size: 11px;
-  color: var(--lightpink);
+  font-size: 20px;
+  font-family: "Appeal";
 }
 
 .nav-links a {
-  color: var(--text);
+  color: var(--cream);
+  text-decoration: none;
 }
 
 .nav-link {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   align-items: center;
   gap: 6px;
   text-align: center;
+  letter-spacing: 1.5px;
 }
 
 .nav-logo {
-  width: 22px;
-  height: 22px;
-  filter: invert(54%) sepia(14%) saturate(1354%) hue-rotate(298deg) brightness(92%) contrast(89%);
+  width: 26px;
+  height: 26px;
+  filter: invert(83%) sepia(25%) saturate(214%) hue-rotate(334deg) brightness(113%) contrast(98%);
+}
+
+#eco-guide-link {
+  color: var(--lime);
+}
+
+#eco-guide-link img {
+  filter: invert(93%) sepia(7%) saturate(984%) hue-rotate(15deg) brightness(101%) contrast(98%);
+}
+.navbar button {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--pink);
+  color: var(--cream);
+  font-family: "Nexline";
 }
 
 /* ===================================================
@@ -129,10 +140,6 @@ img {
 }
 
 .hero {
-  background-image: url('/images/background.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   height: 80vh;
   display: flex;
   flex-direction: column;
@@ -596,33 +603,187 @@ img {
 ============================================ */
 
 .footer {
-  padding: 1rem;
-  text-align: center;
-  background-color: #f3e5e5;
+  background: var(--cream);
+  position: relative;
+  color: var(--text);
+  padding-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  --mask:
+    radial-gradient(65.74px at 50% 88.5px,#000 99%,#0000 101%) calc(50% - 60px) 0/120px 100%,
+    radial-gradient(65.74px at 50% -58.5px,#0000 99%,#000 101%) 50% 30px/120px 100% repeat-x;
+  -webkit-mask: var(--mask);
+          mask: var(--mask);
+}
+.flower-one, 
+.flower-two,
+.flower-three {
+  width: 50px;
+  position: absolute;
+  z-index: 800;
+}
+.flower-one {
+  top: 103px;
+  right: 87px;
+  filter: invert(70%) sepia(10%) saturate(1707%) hue-rotate(325deg) brightness(103%) contrast(92%);
+}
+.flower-two {
+  top: 330px;
+  right: 37px;
+  filter: invert(91%) sepia(62%) saturate(5190%) hue-rotate(175deg) brightness(100%) contrast(93%);
+}
+.flower-three {
+  top: 190px;
+  left: 30px;
+  filter: invert(79%) sepia(24%) saturate(453%) hue-rotate(297deg) brightness(101%) contrast(91%);
+}
+.footer h2,
+.footer h3 {
+  margin: 0 0 0.5rem 0;
+  font-family: "Appeal";
+}
+.footer h2 {
+  background-color: var(--pink);
+  padding: 13px 24px;
+  color: var(--cream);
+  align-self: center;
+  letter-spacing: 2.6px;
+  border-radius: 20px;
+  font-size: 40px;
+  transform: rotate(1.8deg);
 }
 
+.footer p {
+  margin: 0;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  align-self: center;
+  background-color: var(--lime);
+  padding: 14px 20px;
+  border-radius: 20px;
+  color: var(--peach);
+  font-family: "Nexline";
+  font-size: 19px;
+  
+}
+
+.social-banner {
+  background-color: var(--skyblue);
+  align-self: center;
+  padding: 16px 20px;
+  border-radius: 20px;
+  color: var(--cream);
+  letter-spacing: 2.2px;
+  font-family: "Nexline";
+  font-size: 30px;
+  transform: rotate(-2.8deg);
+}
+.footer-socials {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+.footer-socials img {
+  width: 40px;
+  filter: invert(70%) sepia(10%) saturate(1707%) hue-rotate(325deg) brightness(103%) contrast(92%);
+}
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.footer-links {
+  background-color: var(--pink);
+  width: 100%;
+  --mask:
+    radial-gradient(28.28px at 50% 40px,#000 99%,#0000 101%) calc(50% - 40px) 0/80px 100%,
+    radial-gradient(28.28px at 50% -20px,#0000 99%,#000 101%) 50% 20px/80px 100% repeat-x;
+  -webkit-mask: var(--mask);
+          mask: var(--mask);
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  padding: 3rem 2rem;
+}
+.footer-links h3 {
+  font-size: 50px;
+  letter-spacing: 2px;
+  color: var(--cream)
+}
+.footer-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-family: "Nexline";
+  letter-spacing: 2.5px;
+  font-size: 26x;
+}
+
+.footer-link-list a {
+  color: var(--cream);
+  text-decoration: none;
+}
+
+.footer-link-list a:hover {
+  color: var(--peach)
+}
+.footer-extra {
+  background-color: var(--skyblue);
+  --mask:
+    radial-gradient(28.28px at 50% 40px,#000 99%,#0000 101%) calc(50% - 40px) 0/80px 100%,
+    radial-gradient(28.28px at 50% -20px,#0000 99%,#000 101%) 50% 20px/80px 100% repeat-x;
+  -webkit-mask: var(--mask);
+          mask: var(--mask);
+  padding-top: 50px;
+  margin-top: -55px;
+  display: flex;
+  flex-direction: row;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.footer-extra h3 {
+  font-size: 50px;
+  color: var(--cream);
+  letter-spacing: 2px;
+}
+.footer-extra p {
+  background: transparent;
+  text-align: right;
+  color: var(--cream);
+  font-size: 20px;
+  font-family: "Nexline";
+  letter-spacing: 1.2px;
+}
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  padding-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  background-color: var(--skyblue);
+  margin-top: -30px;
+}
+.footer-bottom p {
+  background: transparent;
+  letter-spacing: 1px;
+}
 /* =========================================
 ============= TABLET =======================
 ========================================== */
 
 @media (min-width: 600px) {
-  .nav-links {
-    font-size: 12px;
-  }
-
-  .nav-logo {
-    width: 25px;
-    height: 25px;
-  }
-
+/* ==================== ECO GUIDE =================== */
   .material-cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
+/* ==================== ACHIEVEMENTS ================== */
   .achievement-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
+/* ==================== JOURNAL =================== */
   .journal-buttons {
     flex-direction: row;
     flex-wrap: wrap;
@@ -644,14 +805,10 @@ img {
 @media (min-width: 768px) {
   .navbar {
     justify-content: space-between;
-    padding: 12px 20px;
+    padding: 12px 35px;
   }
-
-  .logo {
-    width: auto;
-    justify-content: flex-start;
-    font-size: 30px;
-    text-align: left;
+  .navbar .logo {
+    scale: 1.2;
   }
 
   .nav-links {
@@ -664,9 +821,6 @@ img {
     gap: 11px;
   }
 
-  .main-content {
-    padding: 2rem;
-  }
 
   .material-cards {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -694,14 +848,38 @@ img {
     justify-content: space-between;
     align-items: center;
   }
+  .flower-one {
+    right: 220px; 
+    top: 100px;
+  }
+  .flower-two {
+    right: 140px;
+    top: 300px;
+  }
+  .flower-three {
+    left: 100px;
+  }
 }
 
 @media (min-width: 900px) {
+  .navbar .logo {
+    scale: 1.3;
+    margin-top: -16px;
+  }
+  .nav-links {
+    scale: 1.1;
+  }
+  .nav-links img {
+    scale: 1.2;
+  }
   .journal-layout {
     grid-template-columns: 1fr 1.3fr;
     gap: 2rem;
   }
-
+  .flower-three {
+    left: 220px;
+  }
+  
   .calendar-card,
   .entry-card {
     border-radius: 24px;
@@ -716,5 +894,28 @@ img {
     height: 64px;
     border-radius: 18px;
     font-size: 0.95rem;
+  }
+  .footer-second-half {
+    display: flex;
+  }
+  .footer-links {
+    width: 50%;
+  }
+  .footer-extra {
+    display: flex;
+    flex-direction: row;
+    justify-content: first baseline;
+    align-items: flex-start;
+    margin-top: 0;
+    width: 50%;
+  }
+ 
+  .footer-bottom {
+    position: absolute;
+    z-index: 3000;
+    align-self: center;
+    bottom: 0;
+    border: none;
+    background: transparent;
   }
 }
