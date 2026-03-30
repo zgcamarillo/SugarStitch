@@ -3,6 +3,7 @@ const router = express.Router()
 const stitches = require('../data/stitches')
 const User = require('../models/User')
 const { protect } = require('../middleware/authMiddleware')
+const { adminOnly } = require('../middleware/adminMiddleware')
 
 router.get('/', (req, res) => {
   res.json(stitches)
@@ -69,6 +70,51 @@ router.delete('/favorites/:stitchId', protect, async (req, res) => {
     })
   } catch (error) {
     res.status(500).json({ message: 'Failed to remove favorite stitch' })
+  }
+})
+
+router.post('/', protect, adminOnly, (req, res) => {
+  try {
+    const { name, abbreviation, level, category, description, image } = req.body
+
+    const newStitch = {
+      id: stitches.length ? Math.max(...stitches.map((stitch) => stitch.id)) + 1 : 1,
+      name,
+      abbreviation,
+      level,
+      category,
+      description,
+      image,
+    }
+
+    stitches.push(newStitch)
+
+    res.status(201).json({
+      message: 'Stitch added successfully',
+      stitch: newStitch,
+    })
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to add stitch' })
+  }
+})
+
+router.delete('/:id', protect, adminOnly, (req, res) => {
+  try {
+    const stitchId = Number(req.params.id)
+    const stitchIndex = stitches.findIndex((stitch) => stitch.id === stitchId)
+
+    if (stitchIndex === -1) {
+      return res.status(404).json({ message: 'Stitch not found' })
+    }
+
+    const deletedStitch = stitches.splice(stitchIndex, 1)
+
+    res.json({
+      message: 'Stitch deleted successfully',
+      stitch: deletedStitch[0],
+    })
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to delete stitch' })
   }
 })
 

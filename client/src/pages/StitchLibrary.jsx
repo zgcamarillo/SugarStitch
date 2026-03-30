@@ -4,6 +4,8 @@ import api from '../services/api'
 
 export default function StitchLibrary() {
   const navigate = useNavigate()
+  const currentUser = JSON.parse(localStorage.getItem('user'))
+  const isAdmin = currentUser?.role === 'admin'
 
   const [stitches, setStitches] = useState([])
   const [savedIds, setSavedIds] = useState([])
@@ -12,6 +14,15 @@ export default function StitchLibrary() {
   const [message, setMessage] = useState('')
   const [levelFilter, setLevelFilter] = useState('All')
   const [categoryFilter, setCategoryFilter] = useState('All')
+
+  const [newStitch, setNewStitch] = useState({
+    name: '',
+    abbreviation: '',
+    level: 'Beginner',
+    category: 'Basic',
+    description: '',
+    image: '',
+  })
 
   useEffect(() => {
     const loadStitches = async () => {
@@ -54,6 +65,50 @@ export default function StitchLibrary() {
     }
   }
 
+  const handleAddStitch = async (e) => {
+    e.preventDefault()
+
+    try {
+      setMessage('')
+      setError('')
+
+      const res = await api.post('/api/stitches', newStitch)
+
+      setStitches((prev) => [res.data.stitch, ...prev])
+      setMessage('Stitch added successfully!')
+
+      setNewStitch({
+        name: '',
+        abbreviation: '',
+        level: 'Beginner',
+        category: 'Basic',
+        description: '',
+        image: '',
+      })
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to add stitch')
+    }
+  }
+
+  const handleDeleteStitch = async (e, stitchId) => {
+    e.stopPropagation()
+
+    const confirmed = window.confirm('Are you sure you want to delete this stitch?')
+    if (!confirmed) return
+
+    try {
+      setMessage('')
+      setError('')
+
+      await api.delete(`/api/stitches/${stitchId}`)
+
+      setStitches((prev) => prev.filter((stitch) => stitch.id !== stitchId))
+      setMessage('Stitch deleted successfully!')
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to delete stitch')
+    }
+  }
+
   const filteredStitches = stitches.filter((stitch) => {
     const matchesLevel =
       levelFilter === 'All' || stitch.level === levelFilter
@@ -87,6 +142,76 @@ export default function StitchLibrary() {
           View Favorites
         </button>
       </div>
+
+      {isAdmin && (
+        <form className="admin-stitch-form" onSubmit={handleAddStitch}>
+          <h2>Add New Stitch</h2>
+
+          <input
+            type="text"
+            placeholder="Stitch name"
+            value={newStitch.name}
+            onChange={(e) =>
+              setNewStitch({ ...newStitch, name: e.target.value })
+            }
+            required
+          />
+
+          <input
+            type="text"
+            placeholder="Abbreviation"
+            value={newStitch.abbreviation}
+            onChange={(e) =>
+              setNewStitch({ ...newStitch, abbreviation: e.target.value })
+            }
+            required
+          />
+
+          <select
+            value={newStitch.level}
+            onChange={(e) =>
+              setNewStitch({ ...newStitch, level: e.target.value })
+            }
+          >
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </select>
+
+          <select
+            value={newStitch.category}
+            onChange={(e) =>
+              setNewStitch({ ...newStitch, category: e.target.value })
+            }
+          >
+            <option value="Basic">Basic</option>
+            <option value="Textured">Textured</option>
+            <option value="Decorative">Decorative</option>
+            <option value="Technique">Technique</option>
+            <option value="Pattern">Pattern</option>
+          </select>
+
+          <input
+            type="text"
+            placeholder="Image URL"
+            value={newStitch.image}
+            onChange={(e) =>
+              setNewStitch({ ...newStitch, image: e.target.value })
+            }
+          />
+
+          <textarea
+            placeholder="Description"
+            value={newStitch.description}
+            onChange={(e) =>
+              setNewStitch({ ...newStitch, description: e.target.value })
+            }
+            required
+          />
+
+          <button type="submit">Add Stitch</button>
+        </form>
+      )}
 
       {message && <p className="stitch-message success-message">{message}</p>}
       {error && <p className="stitch-message error-message">{error}</p>}
@@ -182,6 +307,16 @@ export default function StitchLibrary() {
                 >
                   {savedIds.includes(stitch.id) ? 'Saved' : 'Save Favorite'}
                 </button>
+
+                {isAdmin && (
+                  <button
+                    type="button"
+                    className="delete-stitch-btn"
+                    onClick={(e) => handleDeleteStitch(e, stitch.id)}
+                  >
+                    Delete
+                  </button>
+                )}
               </div>
             </div>
           ))}
