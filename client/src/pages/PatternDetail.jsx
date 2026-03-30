@@ -13,7 +13,7 @@ function PatternDetail() {
       try {
         const token = localStorage.getItem('token')
 
-        const response = await api.get(`/patterns/${id}`, {
+        const response = await api.get(`/api/patterns/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -33,7 +33,7 @@ function PatternDetail() {
       const token = localStorage.getItem('token')
 
       const response = await api.patch(
-        `/patterns/${pattern._id}/steps/${stepId}`,
+        `/api/patterns/${pattern._id}/steps/${stepId}`,
         { completed: !currentCompleted },
         {
           headers: {

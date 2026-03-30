@@ -43,7 +43,7 @@ function PatternGenerator() {
         formPayload.append('image', image)
       }
 
-      const response = await api.post('/patterns/generate', formPayload, {
+      const response = await api.post('/api/patterns/generate', formPayload, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -64,7 +64,7 @@ function PatternGenerator() {
       const token = localStorage.getItem('token')
 
       const response = await api.patch(
-        `/patterns/${generatedPattern._id}/steps/${stepId}`,
+        `/api/patterns/${generatedPattern._id}/steps/${stepId}`,
         { completed: !currentCompleted },
         {
           headers: {

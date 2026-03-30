@@ -20,8 +20,8 @@ export default function StitchLibrary() {
         setError('')
 
         const [stitchesRes, favoritesRes] = await Promise.all([
-          api.get('/stitches'),
-          api.get('/stitches/favorites'),
+          api.get('/api/stitches'),
+          api.get('/api/stitches/favorites'),
         ])
 
         setStitches(stitchesRes.data || [])
@@ -45,7 +45,7 @@ export default function StitchLibrary() {
       setMessage('')
       setError('')
 
-      await api.post('/stitches/favorite', stitch)
+      await api.post('/api/stitches/favorite', stitch)
 
       setSavedIds((prev) => [...prev, stitch.id])
       setMessage(`${stitch.name} saved to favorites!`)

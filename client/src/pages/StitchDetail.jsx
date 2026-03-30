@@ -16,7 +16,7 @@ export default function StitchDetail() {
         setLoading(true)
         setError('')
 
-        const res = await api.get('/stitches')
+        const res = await api.get('/api/stitches')
         const foundStitch = res.data.find((item) => item.id === Number(id))
 
         if (!foundStitch) {

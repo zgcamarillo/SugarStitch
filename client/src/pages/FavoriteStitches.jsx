@@ -12,7 +12,7 @@ export default function FavoriteStitches() {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const res = await api.get('/stitches/favorites')
+        const res = await api.get('/api/stitches/favorites')
         setFavorites(res.data)
       } catch (err) {
         setError(
@@ -31,7 +31,7 @@ export default function FavoriteStitches() {
       setError('')
       setMessage('')
 
-      await api.delete(`/stitches/favorites/${stitchId}`)
+      await api.delete(`/api/stitches/favorites/${stitchId}`)
 
       setFavorites((prev) =>
         prev.filter((stitch) => stitch.stitchId !== stitchId)

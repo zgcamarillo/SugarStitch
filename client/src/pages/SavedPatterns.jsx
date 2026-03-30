@@ -12,7 +12,7 @@ function SavedPatterns() {
       try {
         const token = localStorage.getItem('token')
 
-        const response = await api.get('/patterns', {
+        const response = await api.get('/api/patterns', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -36,7 +36,7 @@ function SavedPatterns() {
     try {
       const token = localStorage.getItem('token')
 
-      await api.delete(`/patterns/${patternId}`, {
+      await api.delete(`/api/patterns/${patternId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

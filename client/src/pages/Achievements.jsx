@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import api from '../services/api'
 
 export default function Achievements() {
   const [user, setUser] = useState(null)
@@ -14,21 +15,11 @@ export default function Achievements() {
           throw new Error('You must be logged in to view achievements')
         }
 
-        const res = await fetch('http://localhost:5000/api/auth/me', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        const res = await api.get('/api/auth/me')
 
-        const data = await res.json()
-
-        if (!res.ok) {
-          throw new Error(data.message || 'Failed to load account')
-        }
-
-        setUser(data)
+        setUser(res.data)
       } catch (err) {
-        setError(err.message)
+        setError(err.response?.data?.message || err.message)
       } finally {
         setLoading(false)
       }
@@ -181,7 +172,9 @@ export default function Achievements() {
         ))}
       </div>
 
-      {/* <h2 style={{ marginTop: '40px' }}>Your Charms</h2>
+      {/* Charms (optional UI if you re-enable later) */}
+      {/* 
+      <h2 style={{ marginTop: '40px' }}>Your Charms</h2>
       <div className="charms">
         {charms.map((c) => (
           <div key={c.id} className="charm">
@@ -189,7 +182,8 @@ export default function Achievements() {
             <p>{c.name}</p>
           </div>
         ))}
-      </div> */}
+      </div> 
+      */}
     </div>
   )
 }
