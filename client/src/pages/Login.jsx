@@ -46,6 +46,13 @@ export default function Login() {
   return (
     <div className="login-page">
       <div className="login-wrapper">
+        <img src="/images/pin.png" alt="pin" className="pin" />
+
+        <div className="login-intro">
+          <h2>Welcome Back</h2>
+          <p>Login to continue your journey</p>
+        </div>
+
         <h1>LOGIN</h1>
 
         <form onSubmit={handleSubmit}>
@@ -67,11 +74,37 @@ export default function Login() {
             required
           />
 
+          <div className="forgot-password-link">
+            <Link to="/forgot-password">Forgot Password?</Link>
+          </div>
+
           <button type="submit">Login</button>
         </form>
 
-        {message && <p className="success-message">{message}</p>}
-        {error && <p className="error-message">{error}</p>}
+        <div className="register-link">
+          <Link to="/register">Don’t have an account? Register here!</Link>
+        </div>
+
+        <div className="login-flowers">
+          <img
+            src="/images/flower2.png"
+            alt="flower border"
+            className="flower-border-one"
+          />
+          <img
+            src="/images/flower3.png"
+            alt="flower border"
+            className="flower-border-two"
+          />
+          <img
+            src="/images/flower2.png"
+            alt="flower border"
+            className="flower-border-one"
+          />
+        </div>
+
+        {message && <p className="auth-message success-message">{message}</p>}
+        {error && <p className="auth-message error-message">{error}</p>}
       </div>
     </div>
   )
