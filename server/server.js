@@ -16,6 +16,7 @@ app.use('/api/auth', require('./routes/authRoutes'))
 app.use('/api/patterns', require('./routes/patternRoutes'))
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use('/api/journal', require('./routes/journalRoutes'))
+app.use('/api/stitches', require('./routes/stitchRoutes'))
 
 app.get('/', (req, res) => {
     res.send('Sugar Stitch API is running')

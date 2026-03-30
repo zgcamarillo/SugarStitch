@@ -155,12 +155,15 @@ export default function Achievements() {
   const unlockedAchievements = achievements.filter((a) => a.unlocked)
 
   return (
-    <div className="page">
-      <h1>Achievements & Charms</h1>
+    <div className="achievement-page">
+      <h1>Achievements</h1>
       <p>Celebrate your crochet milestones and eco-friendly choices </p>
 
-      <p>
-        {unlockedAchievements.length} / {achievements.length} achievements unlocked
+      <p className="achievement-progress">
+        <span>
+          {unlockedAchievements.length} / {achievements.length}
+        </span>
+        <small>achievements unlocked</small>
       </p>
 
       <div className="achievement-grid">
@@ -172,7 +175,7 @@ export default function Achievements() {
             <img src={a.image} alt={a.title} className="achievement-img" />
             <h3>{a.title}</h3>
             <p>{a.category}</p>
-            <small>{a.requirementText}</small>
+            <small>{a.requirementText}</small><br></br>
             <span>{a.unlocked ? 'Unlocked' : 'Keep stitching to unlock'}</span>
           </div>
         ))}

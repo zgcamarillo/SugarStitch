@@ -21,7 +21,8 @@ function ForgotPassword() {
 
   return (
     <div className="forgot-password-page">
-      <h1>Reset Password</h1>
+      <div className='forgot-password-wrapper'>
+      <h1>Reset<br></br> Password</h1>
       <p>Enter your email and we’ll send you a reset link.</p>
 
       <form onSubmit={handleSubmit}>
@@ -35,6 +36,12 @@ function ForgotPassword() {
         />
         <button type="submit">Send Reset Link</button>
       </form>
+      <div className="login-flowers">
+        <img src="/images/flower2.png" alt="flower border" className="flower-border-one"/>
+        <img src="/images/flower3.png" alt="flower border" className="flower-border-two"/>
+        <img src="/images/flower2.png" alt="flower border" className="flower-border-one"/>
+      </div>
+      </div>
 
       {message && <p>{message}</p>}
       {error && <p>{error}</p>}

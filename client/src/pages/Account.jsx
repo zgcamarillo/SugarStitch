@@ -36,24 +36,45 @@ function Account() {
   }
 
   return (
-    <div>
-      <h1>Welcome, {user.firstName} </h1>
-
-      <div>
-        <h2>My Dashboard</h2>
-        <p><strong>Name:</strong> {user.firstName} {user.lastName || ''}</p>
-        <p><strong>Email:</strong> {user.email}</p>
-        <p><strong>Expertise:</strong> {user.expertise || 'beginner'}</p>
-        <p><strong>Role:</strong> {user.role}</p>
+    <div className="account-page">
+      <div className='account-overview'>
+        <div className="profile-picture">
+          {user.profilePicture ? (
+            <img src={user.profilePicture} alt={`${user.firstName}'s profile`} />
+          ) : (
+            <div className="placeholder-picture">
+              {user.firstName.charAt(0).toUpperCase()}
+            </div>
+          )}
+        </div>
+        <p className='account-user-name'>{user.firstName} {user.lastName || ''}</p>
+        <div className="account-summary">
+        <p>{user.expertise || 'beginner'} | {user.role}</p>
+        </div>
+        <p className='account-email'><strong>{user.email}</strong></p>
       </div>
 
-      <div>
+      <div className="account-achievements">
+        <h2>Achievements</h2>
+        {user.achievements && user.achievements.length > 0 ? (
+          <ul>
+            {user.achievements.map((achievement) => (
+              <li key={achievement._id}>{achievement.name}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No achievements yet. Keep stitching to earn some!</p>
+        )}
+      </div>
+
+      <div className='account-progress'>
         <h2>Progress</h2>
         <XpDonut xp={user.xp ?? 0} level={user.level ?? 1} />
-        <p><strong>Daily Goal:</strong> {user.dailyGoal ?? 0}</p>
+        <p><strong>Daily Goal:</strong> {user.dailyGoal ?? 0} Minutes</p>
         <p><strong>Weekly Goal:</strong> {user.weeklyGoal ?? 0}</p>
         <p><strong>Charms Collected:</strong> {user.charms?.length ?? 0}</p>
       </div>
+      
     </div>
   )
 }

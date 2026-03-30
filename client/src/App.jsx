@@ -7,6 +7,8 @@ import Account from './pages/Account'
 import PatternGenerator from './pages/PatternGenerator'
 import Achievements from './pages/Achievements'
 import StitchLibrary from './pages/StitchLibrary'
+import FavoriteStitches from './pages/FavoriteStitches'
+import StitchDetail from './pages/StitchDetail'
 import Journal from './pages/Journal'
 import EcoGuide from './pages/EcoGuide'
 import SavedPatterns from './pages/SavedPatterns'
@@ -19,45 +21,93 @@ export default function App() {
   return (
     <MainLayout>
       <Routes>
-        <Route path="/" element={<Home />} /> 
-        <Route path="/eco-guide" element={<EcoGuide />} /> 
+        <Route path="/" element={<Home />} />
+        <Route path="/eco-guide" element={<EcoGuide />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} /> 
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/register" element={<Register />} />
 
-        <Route path="/account" element={
-          <ProtectedRoute>
-            <Account />
-          </ProtectedRoute>} /> 
+        <Route
+          path="/account"
+          element={
+            <ProtectedRoute>
+              <Account />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/pattern-generator" element={
-          <ProtectedRoute>
-            <PatternGenerator />
-          </ProtectedRoute>
-          } /> 
-        <Route path="/saved-patterns" element={
-          <ProtectedRoute>
-            <SavedPatterns />
-          </ProtectedRoute>
-        } /> 
-        <Route path="/patterns/:id" element={<PatternDetail />} />
+        <Route
+          path="/pattern-generator"
+          element={
+            <ProtectedRoute>
+              <PatternGenerator />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/stitch-library" element={
-          <ProtectedRoute>
-            <StitchLibrary />
-          </ProtectedRoute>
-        } /> 
-        <Route path="/achievements" element={
-          <ProtectedRoute>
-            <Achievements />
-          </ProtectedRoute>
-        } /> 
-        <Route path="/journal" element={
-          <ProtectedRoute>
-            <Journal />
-          </ProtectedRoute>
-        } /> 
+        <Route
+          path="/saved-patterns"
+          element={
+            <ProtectedRoute>
+              <SavedPatterns />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/patterns/:id"
+          element={
+            <ProtectedRoute>
+              <PatternDetail />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/stitch-library"
+          element={
+            <ProtectedRoute>
+              <StitchLibrary />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/favorite-stitches"
+          element={
+            <ProtectedRoute>
+              <FavoriteStitches />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/stitches/:id"
+          element={
+            <ProtectedRoute>
+              <StitchDetail />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/achievements"
+          element={
+            <ProtectedRoute>
+              <Achievements />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/journal"
+          element={
+            <ProtectedRoute>
+              <Journal />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </MainLayout>
   )

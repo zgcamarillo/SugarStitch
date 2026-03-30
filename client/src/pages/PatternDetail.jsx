@@ -56,51 +56,63 @@ function PatternDetail() {
     }
   }
 
-  if (error) return <p>{error}</p>
-  if (!pattern) return <p>Loading...</p>
+  if (error) {
+    return (
+      <div className="pattern-detail-page">
+        <p className="pattern-detail-error">{error}</p>
+      </div>
+    )
+  }
+
+  if (!pattern) {
+    return (
+      <div className="pattern-detail-page">
+        <p className="pattern-detail-message">Loading...</p>
+      </div>
+    )
+  }
 
   return (
-    <div>
-      {xpPopup && (
-        <div
-          style={{
-            position: 'fixed',
-            top: '20px',
-            right: '20px',
-            background: '#f8d7da',
-            color: '#3d2c2e',
-            padding: '0.75rem 1rem',
-            borderRadius: '12px',
-            fontWeight: 'bold',
-            boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
-          }}
-        >
-          +10 XP
+    <div className="pattern-detail-page">
+      {xpPopup && <div className="xp-popup">+10 XP</div>}
+
+      <div className="pattern-detail-card">
+        <h1>{pattern.title}</h1>
+
+        <div className="pattern-meta">
+          <p>
+            <strong>Difficulty:</strong> {pattern.difficulty}
+          </p>
+          <p>
+            <strong>Yarn:</strong> {pattern.estimatedYarn}
+          </p>
+          <p>
+            <strong>Time:</strong> {pattern.estimatedTime}
+          </p>
         </div>
-      )}
 
-      <h1>{pattern.title}</h1>
+        <h3>Full Pattern</h3>
+        <pre className="pattern-full-text">
+          {pattern.generatedPattern}
+        </pre>
 
-      <p><strong>Difficulty:</strong> {pattern.difficulty}</p>
-      <p><strong>Yarn:</strong> {pattern.estimatedYarn}</p>
-      <p><strong>Time:</strong> {pattern.estimatedTime}</p>
-
-      <h3>Full Pattern</h3>
-      <pre style={{ whiteSpace: 'pre-wrap' }}>
-        {pattern.generatedPattern}
-      </pre>
-
-      <h3>Steps</h3>
-      {pattern.steps.map((step) => (
-        <label key={step._id} style={{ display: 'block', marginBottom: '0.75rem' }}>
-          <input
-            type="checkbox"
-            checked={step.completed}
-            onChange={() => handleStepToggle(step._id, step.completed)}
-          />{' '}
-          {step.text}
-        </label>
-      ))}
+        <h3>Steps</h3>
+        <div className="pattern-steps-list">
+          {pattern.steps.map((step) => (
+            <label
+              key={step._id}
+              className={`pattern-step ${step.completed ? 'completed' : ''}`}
+            >
+              <input
+                type="checkbox"
+                checked={step.completed}
+                onChange={() => handleStepToggle(step._id, step.completed)}
+              />
+              <span className="pattern-step-text">{step.text}</span>
+            </label>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }

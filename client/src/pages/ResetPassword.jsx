@@ -38,6 +38,7 @@ function ResetPassword() {
 
   return (
     <div className="reset-password-page">
+      <div className='reset-password-wrapper'>
       <h1>Create New Password</h1>
 
       <form onSubmit={handleSubmit}>
@@ -59,6 +60,7 @@ function ResetPassword() {
 
         <button type="submit">Update Password</button>
       </form>
+      </div>
 
       {message && <p>{message}</p>}
       {error && <p>{error}</p>}

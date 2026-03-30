@@ -51,51 +51,41 @@ function SavedPatterns() {
   }
 
   return (
-    <div>
+    <div className="saved-patterns-page">
       <h1>Saved Patterns</h1>
 
-      {error && <p>{error}</p>}
+      {error && <p className="saved-error">{error}</p>}
 
       {patterns.length === 0 ? (
-        <p>No saved patterns yet</p>
+        <p className="empty-state">No saved patterns yet</p>
       ) : (
-        patterns.map((pattern) => (
-          <div
-            key={pattern._id}
-            onClick={() => navigate(`/patterns/${pattern._id}`)}
-            style={{
-              border: '1px solid #ddd',
-              padding: '1rem',
-              marginBottom: '1rem',
-              cursor: 'pointer',
-            }}
-          >
-            <h2>{pattern.title}</h2>
-            <p><strong>Difficulty:</strong> {pattern.difficulty}</p>
-            <p><strong>Yarn:</strong> {pattern.estimatedYarn}</p>
-            <p><strong>Time:</strong> {pattern.estimatedTime}</p>
-
-            <h4>Steps Progress</h4>
-            <p>
-              {pattern.steps.filter((step) => step.completed).length} / {pattern.steps.length} completed
-            </p>
-
-            <button
-              onClick={(e) => handleDelete(e, pattern._id)}
-              style={{
-                marginTop: '1rem',
-                backgroundColor: '#bb8588',
-                color: 'white',
-                border: 'none',
-                padding: '0.6rem 1rem',
-                borderRadius: '8px',
-                cursor: 'pointer',
-              }}
+        <div className="pattern-grid">
+          {patterns.map((pattern) => (
+            <div
+              key={pattern._id}
+              className="pattern-card"
+              onClick={() => navigate(`/patterns/${pattern._id}`)}
             >
-              Delete Pattern
-            </button>
-          </div>
-        ))
+              <h2>{pattern.title}</h2>
+
+              <p><strong>Difficulty:</strong> {pattern.difficulty}</p>
+              <p><strong>Yarn:</strong> {pattern.estimatedYarn}</p>
+              <p><strong>Time:</strong> {pattern.estimatedTime}</p>
+
+              <div className="pattern-progress">
+                <strong>Progress:</strong>{' '}
+                {pattern.steps.filter((step) => step.completed).length} / {pattern.steps.length}
+              </div>
+
+              <button
+                className="delete-pattern-btn"
+                onClick={(e) => handleDelete(e, pattern._id)}
+              >
+                Delete Pattern
+              </button>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   )

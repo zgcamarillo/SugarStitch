@@ -110,6 +110,17 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    favoriteStitches: [
+      {
+        stitchId: Number,
+        name: String,
+        abbreviation: String,
+        level: String,
+        category: String,
+        description: String,
+        image: String,
+      },
+    ],
 
     resetPasswordToken: String,
     resetPasswordExpires: Date,

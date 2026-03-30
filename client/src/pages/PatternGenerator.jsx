@@ -6,7 +6,7 @@ function PatternGenerator() {
     title: '',
     prompt: '',
     difficulty: 'beginner',
-    yarnType: 'cotton'
+    yarnType: 'cotton',
   })
 
   const [generatedPattern, setGeneratedPattern] = useState(null)
@@ -81,11 +81,13 @@ function PatternGenerator() {
   }
 
   return (
-    <div>
+    <div className="pattern-page">
       <h1>Pattern Generator</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="pattern-form">
+        <label htmlFor="title">Project Title</label>
         <input
+          id="title"
           type="text"
           name="title"
           placeholder="Project title"
@@ -93,9 +95,10 @@ function PatternGenerator() {
           onChange={handleChange}
           required
         />
-        <br /><br />
 
+        <label htmlFor="prompt">Describe Your Idea</label>
         <textarea
+          id="prompt"
           name="prompt"
           placeholder="Describe your crochet idea..."
           value={formData.prompt}
@@ -103,16 +106,18 @@ function PatternGenerator() {
           rows="5"
           required
         />
-        <br /><br />
 
+        <label htmlFor="image">Upload a reference image</label>
         <input
+          id="image"
           type="file"
           accept="image/*"
           onChange={handleImageChange}
         />
-        <br /><br />
 
+        <label htmlFor="difficulty">Difficulty</label>
         <select
+          id="difficulty"
           name="difficulty"
           value={formData.difficulty}
           onChange={handleChange}
@@ -121,7 +126,7 @@ function PatternGenerator() {
           <option value="intermediate">Intermediate</option>
           <option value="advanced">Advanced</option>
         </select>
-        <br /><br />
+
         <div className="form-group">
           <label htmlFor="yarnType">What type of yarn do you have?</label>
           <select
@@ -142,21 +147,26 @@ function PatternGenerator() {
             <option value="other">Other</option>
           </select>
         </div>
-        <br></br>
 
         <button type="submit" disabled={loading}>
           {loading ? 'Generating...' : 'Generate Pattern'}
         </button>
       </form>
 
-      {error && <p>{error}</p>}
+      {error && <p className="pattern-error">{error}</p>}
 
       {generatedPattern && (
-        <div style={{ marginTop: '2rem' }}>
+        <div className="pattern-result">
           <h2>{generatedPattern.title}</h2>
-          <p><strong>Difficulty:</strong> {generatedPattern.difficulty}</p>
-          <p><strong>Estimated Yarn:</strong> {generatedPattern.estimatedYarn}</p>
-          <p><strong>Estimated Time:</strong> {generatedPattern.estimatedTime}</p>
+          <p>
+            <strong>Difficulty:</strong> {generatedPattern.difficulty}
+          </p>
+          <p>
+            <strong>Estimated Yarn:</strong> {generatedPattern.estimatedYarn}
+          </p>
+          <p>
+            <strong>Estimated Time:</strong> {generatedPattern.estimatedTime}
+          </p>
 
           {generatedPattern.image && (
             <div>
@@ -164,29 +174,26 @@ function PatternGenerator() {
               <img
                 src={generatedPattern.image}
                 alt={generatedPattern.title}
-                style={{ maxWidth: '300px', borderRadius: '10px' }}
+                className="pattern-image"
               />
             </div>
           )}
 
           <h3>Full Pattern</h3>
-          <pre style={{ whiteSpace: 'pre-wrap' }}>
+          <pre className="pattern-text">
             {generatedPattern.generatedPattern}
           </pre>
 
           <h3>Steps</h3>
-          <div>
+          <div className="pattern-steps">
             {generatedPattern.steps?.map((step) => (
-              <label
-                key={step._id}
-                style={{ display: 'block', marginBottom: '0.75rem' }}
-              >
+              <label key={step._id}>
                 <input
                   type="checkbox"
                   checked={step.completed}
                   onChange={() => handleStepToggle(step._id, step.completed)}
-                />{' '}
-                {step.text}
+                />
+                <span>{step.text}</span>
               </label>
             ))}
           </div>
