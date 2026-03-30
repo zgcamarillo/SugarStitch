@@ -175,13 +175,13 @@ export default function Achievements() {
             <img src={a.image} alt={a.title} className="achievement-img" />
             <h3>{a.title}</h3>
             <p>{a.category}</p>
-            <small>{a.requirementText}</small><br></br>
+            <small>{a.requirementText}</small>
             <span>{a.unlocked ? 'Unlocked' : 'Keep stitching to unlock'}</span>
           </div>
         ))}
       </div>
 
-      <h2 style={{ marginTop: '40px' }}>Your Charms</h2>
+      {/* <h2 style={{ marginTop: '40px' }}>Your Charms</h2>
       <div className="charms">
         {charms.map((c) => (
           <div key={c.id} className="charm">
@@ -189,7 +189,7 @@ export default function Achievements() {
             <p>{c.name}</p>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   )
 }

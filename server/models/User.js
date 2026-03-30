@@ -61,6 +61,22 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 1,
     },
+    achievements: [
+      {
+        name: {
+          type: String,
+          required: true,
+        },
+        description: {
+          type: String,
+          default: '',
+        },
+        unlockedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
     charms: {
       type: [String],
       default: [],

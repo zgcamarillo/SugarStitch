@@ -52,6 +52,24 @@ function SavedPatterns() {
 
   return (
     <div className="saved-patterns-page">
+
+      {/* ✨ NEW HEADER ACTIONS */}
+      <div className="saved-header">
+        <button
+          className="saved-btn secondary-btn"
+          onClick={() => navigate('/pattern-generator')}
+        >
+          Back to Generator
+        </button>
+
+        <button
+          className="saved-btn primary-btn"
+          onClick={() => navigate('/pattern-generator')}
+        >
+          + Create New Pattern
+        </button>
+      </div>
+
       <h1>Saved Patterns</h1>
 
       {error && <p className="saved-error">{error}</p>}

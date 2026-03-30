@@ -31,7 +31,6 @@ export default function Login() {
       localStorage.setItem('token', response.data.token)
       localStorage.setItem('user', JSON.stringify(response.data.user))
 
-      // tell Navbar to update immediately
       window.dispatchEvent(new Event('authChange'))
 
       setMessage(response.data.message)
@@ -46,53 +45,67 @@ export default function Login() {
 
   return (
     <div className="login-page">
-      <img src="/images/pin.png" alt="pin" className="pin"/>
       <div className="login-wrapper">
-      <div className='login-intro'>
-        <h2>Welcome Back</h2>
-        <p>Login to continue your journey</p>
+        <img src="/images/pin.png" alt="pin" className="pin" />
+
+        <div className="login-intro">
+          <h2>Welcome Back</h2>
+          <p>Login to continue your journey</p>
+        </div>
+
+        <h1>LOGIN</h1>
+
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+
+          <div className="forgot-password-link">
+            <Link to="/forgot-password">Forgot Password?</Link>
+          </div>
+
+          <button type="submit">Login</button>
+        </form>
+
+        <div className="register-link">
+          <Link to="/register">Don’t have an account? Register here!</Link>
+        </div>
+
+        <div className="login-flowers">
+          <img
+            src="/images/flower2.png"
+            alt="flower border"
+            className="flower-border-one"
+          />
+          <img
+            src="/images/flower3.png"
+            alt="flower border"
+            className="flower-border-two"
+          />
+          <img
+            src="/images/flower2.png"
+            alt="flower border"
+            className="flower-border-one"
+          />
+        </div>
+
+        {message && <p className="auth-message success-message">{message}</p>}
+        {error && <p className="auth-message error-message">{error}</p>}
       </div>
-      <h1>LOGIN</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <br />
-
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <br />
-
-       
-
-      <div className="forgot-password-link">
-        <Link to="/forgot-password">Forgot Password?</Link>
-      </div> 
-      <button type="submit">Login</button>
-      </form>
-      <div className="register-link">
-        <Link to="/register">Dont have account? Register here!</Link>
-      </div>
-      <div className="login-flowers">
-        <img src="/images/flower2.png" alt="flower border" className="flower-border-one"/>
-        <img src="/images/flower3.png" alt="flower border" className="flower-border-two"/>
-        <img src="/images/flower2.png" alt="flower border" className="flower-border-one"/>
-      </div>
-
-      {message && <p>{message}</p>}
-      {error && <p>{error}</p>}
-    </div>
     </div>
   )
 }

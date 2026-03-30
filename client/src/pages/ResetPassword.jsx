@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import api from '../services/api'
 
 function ResetPassword() {
@@ -22,7 +22,7 @@ function ResetPassword() {
     }
 
     try {
-      const res = await api.post(`/api/auth/reset-password/${token}`, {
+      const res = await api.post(`/auth/reset-password/${token}`, {
         password,
       })
 
@@ -38,32 +38,63 @@ function ResetPassword() {
 
   return (
     <div className="reset-password-page">
-      <div className='reset-password-wrapper'>
-      <h1>Create New Password</h1>
+      <div className="reset-password-wrapper">
+        <img src="/images/pin.png" alt="pin" className="pin" />
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="password"
-          placeholder="New password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div className="reset-password-intro">
+          <h2>Almost There</h2>
+          <p>Create a new password for your cozy account</p>
+        </div>
 
-        <input
-          type="password"
-          placeholder="Confirm new password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
+        <h1>NEW PASSWORD</h1>
 
-        <button type="submit">Update Password</button>
-      </form>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="password"
+            name="password"
+            placeholder="New password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm new password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+
+          <button type="submit">Update Password</button>
+        </form>
+
+        <div className="login-link">
+          <Link to="/login">Back to Login</Link>
+        </div>
+
+        <div className="login-flowers">
+          <img
+            src="/images/flower2.png"
+            alt="flower border"
+            className="flower-border-one"
+          />
+          <img
+            src="/images/flower3.png"
+            alt="flower border"
+            className="flower-border-two"
+          />
+          <img
+            src="/images/flower2.png"
+            alt="flower border"
+            className="flower-border-one"
+          />
+        </div>
+
+        {message && <p className="auth-message success-message">{message}</p>}
+        {error && <p className="auth-message error-message">{error}</p>}
       </div>
-
-      {message && <p>{message}</p>}
-      {error && <p>{error}</p>}
     </div>
   )
 }

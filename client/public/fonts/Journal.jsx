@@ -187,16 +187,15 @@ export default function Journal() {
 
   return (
     <div className="journal-page">
-      <div className="eco-tip-card">
-        <h2>Eco Tip of the Day </h2>
-        <p>{todayTip}</p>
-      </div>
       <div className="journal-hero-card">
         <h1>Crochet Journal</h1>
         <p>Track your time, save your progress, and celebrate your cozy little wins.</p>
       </div>
 
-      
+      <div className="eco-tip-card">
+        <h2>Eco Tip of the Day </h2>
+        <p>{todayTip}</p>
+      </div>
 
       <div className="goal-card">
         <div>
