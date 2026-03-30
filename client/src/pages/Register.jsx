@@ -39,7 +39,7 @@ function Register() {
           : [],
       }
 
-      const response = await api.post('/auth/register', payload)
+      const response = await api.post('/api/auth/register', payload)
 
       setMessage(response.data.message)
 
@@ -157,24 +157,6 @@ function Register() {
 
         <div className="login-link">
           <Link to="/login">Already have an account? Login here!</Link>
-        </div>
-
-        <div className="login-flowers">
-          <img
-            src="/images/flower2.png"
-            alt="flower border"
-            className="flower-border-one"
-          />
-          <img
-            src="/images/flower3.png"
-            alt="flower border"
-            className="flower-border-two"
-          />
-          <img
-            src="/images/flower2.png"
-            alt="flower border"
-            className="flower-border-one"
-          />
         </div>
 
         {message && <p className="auth-message success-message">{message}</p>}

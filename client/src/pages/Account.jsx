@@ -12,19 +12,9 @@ function Account() {
   useEffect(() => {
     const fetchAccountData = async () => {
       try {
-        const token = localStorage.getItem('token')
-
         const [userResponse, patternsResponse] = await Promise.all([
-          api.get('/auth/me', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }),
-          api.get('/patterns', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }),
+          api.get('/api/auth/me'),
+          api.get('/api/patterns'),
         ])
 
         setUser(userResponse.data)
