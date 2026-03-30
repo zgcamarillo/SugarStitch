@@ -133,6 +133,7 @@ export default function StitchLibrary() {
         <div>
           <h1>Stitch Library</h1>
           <p>Explore stitches, learn step by step, and save your favorites.</p>
+          {isAdmin && <span className="admin-badge">Admin Mode ✨</span>}
         </div>
 
         <button

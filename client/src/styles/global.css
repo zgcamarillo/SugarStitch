@@ -3191,7 +3191,90 @@ input::placeholder {
 button:active {
   transform: scale(0.96);
 }
+.admin-stitch-form {
+  background: #fcf3e2;
+  border: 3px solid #f4bdce;
+  border-radius: 24px;
+  padding: 1.5rem;
+  margin: 2rem auto;
+  max-width: 900px; /* ✨ makes it wider */
+  box-shadow: 0 8px 20px rgba(107, 79, 79, 0.12);
+}
 
+.admin-stitch-form h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #6b4f4f;
+}
+
+.admin-stitch-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.admin-stitch-form textarea,
+.admin-stitch-form button {
+  grid-column: span 2;
+}
+
+.admin-stitch-form input,
+.admin-stitch-form select,
+.admin-stitch-form textarea {
+  padding: 0.8rem;
+  border-radius: 14px;
+  border: 2px solid #f5a38b;
+  font-size: 0.95rem;
+  background: white;
+}
+
+.admin-stitch-form button {
+  margin-top: 0.5rem;
+  padding: 0.9rem;
+  border-radius: 16px;
+  border: none;
+  background: #8f8e58;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.admin-badge {
+  display: inline-block;
+  margin-top: 0.5rem;
+  background: #f4bdce;
+  color: #6b4f4f;
+  border: 2px solid #f5a38b;
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.delete-stitch-btn {
+  border: none;
+  border-radius: 14px;
+  padding: 0.7rem 1rem;
+  background: #c96b6b;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.delete-stitch-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+@media (max-width: 600px) {
+  .admin-stitch-form {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-stitch-form textarea,
+  .admin-stitch-form button {
+    grid-column: span 1;
+  }
+}
 /* ===================================================
 ==================STITCH DETAIL=========================
 ==================================================== */
